@@ -36,8 +36,9 @@ SCREEN_HEIGHT = 600
 
 pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg"},
         {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.32.56 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.34.25 PM.jpeg"},
-        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.42.45 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.38.44 PM.jpeg"},
-        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.52.12 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.53.45 PM.jpeg"}]
+        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.42.45 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.38.44 PM.jpeg"}]
+
+player_points = 0
 
 class View1(arcade.View):
     def __init__(self):
@@ -82,7 +83,6 @@ class View2(arcade.View):
 
     def on_draw(self):
         self.clear()
-        self.manager.draw()
 
         y = SCREEN_HEIGHT - 100
         paragraphs = description_text.split("\n")
@@ -95,30 +95,56 @@ class View2(arcade.View):
                 arcade.draw_text(fixed_line,SCREEN_WIDTH - 50,y,arcade.color.BLACK,14,anchor_x="right")
                 y -= 25
                 y -= 10
+        self.manager.draw()
+
 class View3(arcade.View):
     def __init__(self):
         super().__init__()
         arcade.set_background_color(arcade.color.LIGHT_YELLOW)
         arcade.AI = ''
         arcade.real = ''
+        self.AI = r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.52.12 PM.jpeg"
+        self.real = r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.53.45 PM.jpeg"
 
-        AI_button = arcade.gui.UITextureButton(texture=arcade/load_texture(self.AI),x=200,y=150,width=150,height=350)
-        AI_button.on_click = self.run_pics()
+        self.manager = arcade.gui.UIManager()
+        self.manager.enable()
+
+        txture = arcade.load_texture(self.AI)
+        AI_button = arcade.gui.UITextureButton(texture=txture,
+                                               width=SCREEN_WIDTH * 0.4,
+                                               height=SCREEN_HEIGHT* 0.7,
+                                               x= SCREEN_WIDTH//9,
+                                               y=SCREEN_HEIGHT//6)
         self.manager.add(AI_button)
+        txture2 = arcade.load_texture(self.real)
+        real_button = arcade.gui.UITextureButton(texture=txture2,
+                                                    width=SCREEN_WIDTH *0.4,
+                                                    height=SCREEN_HEIGHT * 0.7,
+                                                    x= SCREEN_WIDTH * 0.57 ,
+                                                 y= SCREEN_HEIGHT//6)
+        self.manager.add(real_button)
+        real_button.on_click = self.real_button_pressed
+        AI_button.on_click = self.AI_button_pressed
+
+    def real_button_pressed(self, event):
+        self.run_pics()
+        self.clear()
+
+    def AI_button_pressed(self, event):
+        self.run_pics()
+        self.clear()
 
     def run_pics(self):
         selected_pictures = random.choice(pics)
-        AI_picture = selected_pictures['AI']
+        AI_picture = selected_pictures['Ai']
         real_picture = selected_pictures['real']
-        self.AI = arcade.load_texture(AI_picture,)
+        self.AI = arcade.load_texture(AI_picture)
         self.real= arcade.load_texture(real_picture)
 
     def on_draw(self) :
         self.clear()
         self.manager.draw()
 
-
-        arcade.draw_lrbt_rectangle_filled(100,350,150,)
 window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,'Hacaton project 2026')
 window.show_view(View1())
 arcade.run()
