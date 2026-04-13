@@ -34,14 +34,16 @@ description_text = """ברוכים הבאים למשחק זיהוי AI!
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-pics = [{'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.29.50 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.30.43 PM.jpeg"},{'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.32.56 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.34.25 PM.jpeg"},{'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.42.45 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.38.44 PM.jpeg"},{'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.52.12 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.53.45 PM.jpeg"}]
+pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg"},
+        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.32.56 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.34.25 PM.jpeg"},
+        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.42.45 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.38.44 PM.jpeg"},
+        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.52.12 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.53.45 PM.jpeg"}]
 
 class View1(arcade.View):
     def __init__(self):
         super().__init__()
-        self.background = arcade.load_texture(r"C:\Users\USER\Downloads\WhatsApp Image 2026-03-16 at 7.27.28 PM.jpeg")
+        self.background = arcade.load_texture(r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg")
         #start button
-
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         start_button = arcade.gui.UIFlatButton(text='Start', width=100, height=50, style={"normal": {"bg_color": arcade.color.GREEN},"hover": {"bg_color": arcade.color.DARK_GREEN},"press": {"bg_color": arcade.color.DARK_YELLOW}})
@@ -65,7 +67,6 @@ class View2(arcade.View):
     def __init__(self):
         super().__init__()
         arcade.set_background_color(arcade.color.LIGHT_CYAN)
-
 
         #continue button
         self.manager = arcade.gui.UIManager()
