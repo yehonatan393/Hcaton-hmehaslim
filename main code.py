@@ -26,7 +26,6 @@ def wrap_text(text, max_chars):
 
 
 description_text = """ברוכים הבאים למשחק זיהוי AI!
-האם העיניים שלכם חדות מספיק כדי להבדיל בין מציאות לזיוף?
 לפניכם יוצגו זוגות של תמונות – אחת אמיתית ואחת שנוצרה על ידי בינה מלאכותית.
 המשימה שלכם: ללחוץ על התמונה שלדעתכם היא האמיתית.
 שימו לב לפרטים הקטנים: אצבעות, השתקפויות וטקסטורות מוזרות...
@@ -84,16 +83,17 @@ class View2(arcade.View):
         self.clear()
         self.manager.draw()
 
-        lines = wrap_text(description_text, 40)
-
         y = SCREEN_HEIGHT - 100
-        for line in lines:
-            bidi_line = fix_hebrew(line)
-            arcade.draw_text(bidi_line,700, y,arcade.color.BLACK,30,anchor_x="right")
-            y -= 25
+        paragraphs = description_text.split("\n")
 
-        #להוסיף את ההסבר על המשחק
+        for paragraph in paragraphs:
+            lines = wrap_text(paragraph, 50)
 
+            for line in lines:
+                fixed_line = fix_hebrew(line)
+                arcade.draw_text(fixed_line,SCREEN_WIDTH - 50,y,arcade.color.BLACK,14,anchor_x="right")
+                y -= 25
+                y -= 10
 class View3(arcade.View):
     def __init__(self):
         super().__init__()
@@ -101,15 +101,9 @@ class View3(arcade.View):
         arcade.AI = ''
         arcade.real = ''
 
-        self.manager = arcade.gui.UIManager()
-        self.manager.enable()
-        continue_button = arcade.gui.UIFlatButton(text='continue', width=100, height=50, style={"normal": {"bg_color": arcade.color.GREEN},"hover": {"bg_color": arcade.color.DARK_GREEN},"press": {"bg_color": arcade.color.DARK_YELLOW},})
-        continue_button.center_x = SCREEN_WIDTH - 150
-        continue_button.center_y = 75
-        continue_button.on_click = self.run_pics,
-        self.manager.add(continue_button)
-
-        AI_button = arcade.gui.UITextureButton()
+        AI_button = arcade.gui.UITextureButton(texture=arcade/load_texture(self.AI),x=200,y=150,width=150,height=350)
+        AI_button.on_click = self.run_pics()
+        self.manager.add(AI_button)
 
     def run_pics(self):
         selected_pictures = random.choice(pics)
