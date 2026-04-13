@@ -35,8 +35,8 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg"},
-        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.32.56 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.34.25 PM.jpeg"},
-        {'Ai':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.42.45 PM.jpeg",'real':r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.38.44 PM.jpeg"}]
+        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg"},
+        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg"}]
 
 player_points = 0
 
@@ -103,28 +103,28 @@ class View3(arcade.View):
         arcade.set_background_color(arcade.color.LIGHT_YELLOW)
         arcade.AI = ''
         arcade.real = ''
-        self.AI = r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.52.12 PM.jpeg"
-        self.real = r"C:\Users\USER\Downloads\HACATON\WhatsApp Image 2026-03-16 at 7.53.45 PM.jpeg"
+        self.AI = r'assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg'
+        self.real = r'assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg'
 
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
 
         txture = arcade.load_texture(self.AI)
-        AI_button = arcade.gui.UITextureButton(texture=txture,
+        self.AI_button = arcade.gui.UITextureButton(texture=txture,
                                                width=SCREEN_WIDTH * 0.4,
                                                height=SCREEN_HEIGHT* 0.7,
                                                x= SCREEN_WIDTH//9,
                                                y=SCREEN_HEIGHT//6)
-        self.manager.add(AI_button)
-        txture2 = arcade.load_texture(self.real)
-        real_button = arcade.gui.UITextureButton(texture=txture2,
+        self.manager.add(self.AI_button)
+        self.txture2 = arcade.load_texture(self.real)
+        self.real_button = arcade.gui.UITextureButton(texture=self.txture2,
                                                     width=SCREEN_WIDTH *0.4,
                                                     height=SCREEN_HEIGHT * 0.7,
                                                     x= SCREEN_WIDTH * 0.57 ,
                                                  y= SCREEN_HEIGHT//6)
-        self.manager.add(real_button)
-        real_button.on_click = self.real_button_pressed
-        AI_button.on_click = self.AI_button_pressed
+        self.manager.add(self.real_button)
+        self.real_button.on_click = self.real_button_pressed
+        self.AI_button.on_click = self.AI_button_pressed
 
     def real_button_pressed(self, event):
         self.run_pics()
@@ -140,6 +140,12 @@ class View3(arcade.View):
         real_picture = selected_pictures['real']
         self.AI = arcade.load_texture(AI_picture)
         self.real= arcade.load_texture(real_picture)
+        self.real_button.texture = self.real
+        self.real_button.texture_pressed = self.real
+        self.real_button.texture_hovered = self.real
+        self.AI_button.texture = self.AI
+        self.AI_button.texture_pressed = self.AI
+        self.AI_button.texture_hovered = self.AI
 
     def on_draw(self) :
         self.clear()
