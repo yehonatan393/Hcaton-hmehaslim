@@ -180,8 +180,9 @@ class View3(arcade.View):
         self.clear()
         self.manager.draw()
         arcade.draw_lrbt_rectangle_filled(SCREEN_WIDTH*0.487,SCREEN_WIDTH*0.512,SCREEN_HEIGHT*0.133,SCREEN_HEIGHT*0.833,arcade.color.BLACK)
-        arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.1,SCREEN_HEIGHT*0.133,arcade.color.BLACK)
-        arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.833,SCREEN_HEIGHT*0.866,arcade.color.BLACK)
+        arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.1,SCREEN_HEIGHT*0.133,arcade.color.RED)
+        arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.833,SCREEN_HEIGHT*0.866,arcade.color.RED)
+
 
         arcade.draw_text(fix_hebrew(description_text_view3),SCREEN_WIDTH*0.35,SCREEN_HEIGHT*0.9,arcade.color.RED,20)
 
@@ -189,7 +190,7 @@ class View3(arcade.View):
         arcade.draw_text(f'life: {self.player_life}',SCREEN_WIDTH*0.9,SCREEN_HEIGHT*0.9,arcade.color.RED,20)
 
         if self.show_clue:
-            arcade.draw_text(fix_hebrew(self.clue), SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.03,arcade.color.WHITE,20)
+            arcade.draw_text(fix_hebrew(self.clue), SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.03,arcade.color.RED,20)
 
 
 window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,'Hacaton project 2026')
