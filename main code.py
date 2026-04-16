@@ -41,9 +41,8 @@ SCREEN_HEIGHT = 600
 pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
         {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
         {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'clue':''},
-        {'Ai' : r'assets/מכונית AI.jpeg','real':r'assets/מכונית אמיתי.jpeg','clue': 'רמז: חפשו ברקע סימנים שנראים לא ריאליסטים או ציורים לא הגיוניים'},
-        {'Ai': r'assets/ספינה AI.jpeg', 'real':r'assets/ספינה אמיתי.jpeg', 'clue': 'רמז: חפשו כיתובים שנראים מעוותים או צורות שנראות לא רגילות, הAI נוטה לפעמים לטעות בדברים כאלו'},
-        {'Ai': r'assets/רונלדו AI.jpeg', 'real': r'assets/רונלדו אמיתי.jpeg', 'clue': 'רמז: הסתכלו טוב על הפה והשיניים – ב-AI הם לעיתים קרובות נראים כמו גוש אחד לבן או מעוות, ללא הפרדה ברורה וטבעית.'}]
+        {'Ai' : r'assets/מכונית AI.jpeg','real':r'assets/מכונית אמיתי.jpeg','clue': 'רמז: חפשו ברקע סימנים שנראים לא ריאליסטים\n או ציורים לא הגיוניים'},
+        {'Ai': r'assets/ספינה AI.jpeg', 'real':r'assets/ספינה אמיתי.jpeg', 'clue': 'רמז: חפשו כיתובים שנראים מעוותים או צורות שנראות\n לא רגילות, הAI נוטה לפעמים לטעות בדברים כאלו'}]
 background_view_clouds = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
 clue_pic = r"assets/pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
 
@@ -101,9 +100,9 @@ class View3(arcade.View):
         arcade.set_background_color((25,25,35))
         arcade.AI = ''
         arcade.real = ''
-        self.AI = r'assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg'
-        self.real = r'assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg'
-        self.clue = 'תמונות AI פחות ריאליסטיות'
+        self.AI = r'assets/רונלדו AI.jpeg'
+        self.real = r'assets/רונלדו אמיתי.jpeg'
+        self.clue = 'רמז: הסתכלו טוב על הפה והשיניים – ב-AI הם לעיתים \n קרובות נראים כמו גוש אחד לבן או מעוות, ללא הפרדה \n ברורה וטבעית.'
         self.show_clue = False
 
         self.manager = arcade.gui.UIManager()
@@ -133,7 +132,7 @@ class View3(arcade.View):
         self.clue_button = arcade.gui.UITextureButton(texture=self.txture3,
                                                       width=SCREEN_WIDTH*0.05,
                                                       height=SCREEN_HEIGHT*0.05,
-                                                      x= SCREEN_WIDTH*0.95,
+                                                      x= SCREEN_WIDTH*0.85,
                                                       y=SCREEN_HEIGHT*0.0333)
         self.manager.add(self.clue_button)
         self.clue_button.on_click = self.clue_button_clicked
@@ -148,13 +147,15 @@ class View3(arcade.View):
 
     def clue_button_clicked(self, event):
         self.show_clue = True
+
     def button1_pressed(self, event):
         if self.texture1 in real_pics:
             self.player_life -= 1
 
-        if self.texture1 in  AI_pics:
+        elif self.texture1 in  AI_pics:
             global player_score
             player_score += 1
+
         self.run_pics()
         self.clear()
 
@@ -165,6 +166,7 @@ class View3(arcade.View):
         if self.texture2 in  AI_pics:
             global player_score
             player_score +=1
+
         self.run_pics()
         self.clear()
 
@@ -196,15 +198,33 @@ class View3(arcade.View):
         arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.833,SCREEN_HEIGHT*0.841,arcade.color.WHITE)
 
         arcade.draw_text(fix_hebrew(description_text_view3),SCREEN_WIDTH*0.35,SCREEN_HEIGHT*0.9,arcade.color.WHITE,20)
-
+        arcade.draw_text(fix_hebrew('רמז:'),SCREEN_WIDTH*0.9,SCREEN_HEIGHT*0.03,arcade.color.WHITE,20)
         arcade.draw_text(f'score: {player_score}',SCREEN_WIDTH*0.025,SCREEN_HEIGHT*0.9,arcade.color.LIGHT_GREEN,20)
         arcade.draw_text(f'life: {self.player_life}',SCREEN_WIDTH*0.9,SCREEN_HEIGHT*0.9,arcade.color.LIGHT_RED_OCHRE,20)
+
+        self.manager.draw()
+
         if self.show_clue:
-            arcade.draw_text(fix_hebrew(self.clue), SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.03,arcade.color.WHITE,20)
+            y = SCREEN_HEIGHT * 0.1
+            paragraphs = self.clue.split('\n')
+            for row in paragraphs:
+                lines = wrap_text(row, 50)
+                for line in lines:
+                    arcade.draw_text(fix_hebrew(line),SCREEN_WIDTH*0.8,y,arcade.color.WHITE,14,anchor_x='right')
+                    y -= 10
+                    y -= 10
 
         if self.game_over:
             self.window.show_view(View4())
-        self.manager.draw()
+
+
+    def on_hide_view(self) -> None:
+        self.manager.disable()
+
+    def on_show_view(self) -> None:
+        self.manager.enable()
+
+
 class View4(arcade.View):
     def __init__(self):
         super().__init__()
@@ -216,6 +236,8 @@ class View4(arcade.View):
         self.manager.add(retry_button)
 
     def retry_button_clicked(self, event):
+        global player_score
+        player_score = 0
         self.window.show_view(View2())
 
     def on_draw(self):
