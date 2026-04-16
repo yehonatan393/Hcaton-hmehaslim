@@ -40,7 +40,10 @@ SCREEN_HEIGHT = 600
 
 pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
         {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
-        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'clue':''}]
+        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'clue':''},
+        {'Ai' : r'assets/מכונית AI.jpeg','real':r'assets/מכונית אמיתי.jpeg','clue': 'רמז: חפשו ברקע סימנים שנראים לא ריאליסטים או ציורים לא הגיוניים'},
+        {'Ai': r'assets/ספינה AI.jpeg', 'real':r'assets/ספינה אמיתי.jpeg', 'clue': 'רמז: חפשו כיתובים שנראים מעוותים או צורות שנראות לא רגילות, הAI נוטה לפעמים לטעות בדברים כאלו'},
+        {'Ai': r'assets/רונלדו AI.jpeg', 'real': r'assets/רונלדו אמיתי.jpeg', 'clue': 'רמז: הסתכלו טוב על הפה והשיניים – ב-AI הם לעיתים קרובות נראים כמו גוש אחד לבן או מעוות, ללא הפרדה ברורה וטבעית.'}]
 background_view_clouds = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
 clue_pic = r"assets/pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
 
