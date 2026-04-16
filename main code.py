@@ -38,7 +38,7 @@ description_text_view3='לחצו על התמונה האמיתית'
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'text':''},
+pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg"},
         {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg"},
         {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg"}]
 background_view2 = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
@@ -142,6 +142,7 @@ class View3(arcade.View):
                                                       height=SCREEN_HEIGHT*0.01,
                                                       x= SCREEN_WIDTH*0.95,
                                                       y=SCREEN_HEIGHT*0.0333)
+        self.manager.add()
 
     def real_button_pressed(self, event):
         self.run_pics()
