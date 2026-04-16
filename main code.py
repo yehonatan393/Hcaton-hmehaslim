@@ -31,7 +31,7 @@ description_text_view2 = """ברוכים הבאים למשחק זיהוי AI!
 שימו לב לפרטים הקטנים: אצבעות, השתקפויות וטקסטורות מוזרות...
 ה-AI לא תמיד מושלם!"""
 
-description_text_view3='לחצו על התמונה האמיתית'
+description_text_view3='לחצו על התמונה שלדעתכם נוצרה על ידי AI'
 
 description_text_view4 = 'בואו נראה אם למדתם משהו היום - האם התמונה ברקע נוצרה בAI'
 
@@ -92,7 +92,6 @@ class View3(arcade.View):
         super().__init__()
         self.game_over = False
         self.pics = pics.copy()
-        self.player_score = 0
         self.player_life = 3
         self.pic_height = SCREEN_HEIGHT*0.7
         self.pic_width = SCREEN_WIDTH*0.496875
@@ -151,7 +150,8 @@ class View3(arcade.View):
             self.player_life -= 1
 
         if self.texture1 in  AI_pics:
-            self.player_score += 1
+            global player_score
+            player_score += 1
         self.run_pics()
         self.clear()
 
@@ -160,7 +160,8 @@ class View3(arcade.View):
             self.player_life -= 1
 
         if self.texture2 in  AI_pics:
-            self.player_score +=1
+            global player_score
+            player_score +=1
         self.run_pics()
         self.clear()
 
@@ -191,12 +192,10 @@ class View3(arcade.View):
         arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.125,SCREEN_HEIGHT*0.133,arcade.color.WHITE,)
         arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.833,SCREEN_HEIGHT*0.841,arcade.color.WHITE)
 
-
         arcade.draw_text(fix_hebrew(description_text_view3),SCREEN_WIDTH*0.35,SCREEN_HEIGHT*0.9,arcade.color.WHITE,20)
 
-        arcade.draw_text(f'score: {self.player_score}',SCREEN_WIDTH*0.025,SCREEN_HEIGHT*0.9,arcade.color.LIGHT_GREEN,20)
+        arcade.draw_text(f'score: {player_score}',SCREEN_WIDTH*0.025,SCREEN_HEIGHT*0.9,arcade.color.LIGHT_GREEN,20)
         arcade.draw_text(f'life: {self.player_life}',SCREEN_WIDTH*0.9,SCREEN_HEIGHT*0.9,arcade.color.LIGHT_RED_OCHRE,20)
-        player_score = self.player_score
         if self.show_clue:
             arcade.draw_text(fix_hebrew(self.clue), SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.03,arcade.color.WHITE,20)
 
@@ -218,7 +217,7 @@ class View4(arcade.View):
 
     def on_draw(self):
         self.clear()
-        arcade.draw_text(f'your score: {player_score}',SCREEN_WIDTH*0.4,SCREEN_HEIGHT*0.5,arcade.color.LIGHT_GREEN,50)
+        arcade.draw_text(f'your score: {player_score}',SCREEN_WIDTH*0.3,SCREEN_HEIGHT*0.5,arcade.color.LIGHT_GREEN,50)
         arcade.draw_text('GAME OVER',SCREEN_WIDTH*0.3,SCREEN_HEIGHT*0.7,arcade.color.LIGHT_RED_OCHRE,50)
         self.manager.draw()
 
