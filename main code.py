@@ -38,36 +38,17 @@ description_text_view3='לחצו על התמונה האמיתית'
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-pics = [{'num':1,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
-        {'num':2,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
-        {'num':3,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'clue':''}]
-
+pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
+        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
+        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'clue':''}]
 background_view2 = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
 clue_pic = r"assets/pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
-# class View1(arcade.View):
-#     def __init__(self):
-#         super().__init__()
-#         self.background = arcade.load_texture(r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg")
-#         #start button
-#         self.manager = arcade.gui.UIManager()
-#         self.manager.enable()
-#         start_button = arcade.gui.UIFlatButton(text='Start', width=100, height=50, style={"normal": {"bg_color": arcade.color.GREEN},"hover": {"bg_color": arcade.color.DARK_GREEN},"press": {"bg_color": arcade.color.DARK_YELLOW}})
-#         start_button.center_x = SCREEN_WIDTH - 150
-#         start_button.center_y = 50
-#         start_button.on_click = self.continue_to_view2
-#         self.manager.add(start_button)
-#
-#     def continue_to_view2 (self, event):
-#         self.window.show_view(View2())
-#
-#     def on_draw(self):
-#         self.clear()
-#         arcade.draw_texture_rect(self.background,arcade.rect.XYWH(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT))
-#         arcade.draw_lbwh_rectangle_filled(0,0,SCREEN_WIDTH,100,arcade.color.DARK_BLUE)
-#         arcade.draw_text(fix_hebrew(description_text_view1), SCREEN_WIDTH * 0.35, SCREEN_HEIGHT * 0.7,arcade.color.BLACK, 40)
-#         self.manager.draw()
-#
-#         #להוסיף את הברוכים הבאים
+
+real_pics = []
+AI_pics= []
+for pic in pics:
+    AI_pics.append(pic['Ai'])
+    real_pics.append(pic['real'])
 
 class View2(arcade.View):
     def __init__(self):
@@ -106,35 +87,40 @@ class View2(arcade.View):
 class View3(arcade.View):
     def __init__(self):
         super().__init__()
+        self.pics = pics.copy()
         self.player_score = 0
+        self.player_life = 3
         self.pic_height = SCREEN_HEIGHT*0.7
         self.pic_width = SCREEN_WIDTH*0.487
-        arcade.set_background_color(arcade.color.CYAN)
+        arcade.set_background_color(arcade.color.DARK_BLUE)
         arcade.AI = ''
         arcade.real = ''
         self.AI = r'assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg'
         self.real = r'assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg'
+        self.clue = 'תמונות AI פחות ריאליסטיות'
+        self.show_clue = False
 
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         #תמונה AI
-        txture = arcade.load_texture(self.AI)
-        self.AI_button = arcade.gui.UITextureButton(texture=txture,
+        self.texture1 , self.texture2 = self.random_position()
+        texture_1 = arcade.load_texture(self.texture1)
+        self.button1 = arcade.gui.UITextureButton(texture=texture_1,
                                                width=self.pic_width,
                                                height=self.pic_height,
                                                x= 0,
                                                y=SCREEN_HEIGHT*0.133)
-        self.manager.add(self.AI_button)
+        self.manager.add(self.button1)
         #תמונה אמיתית
-        self.txture2 = arcade.load_texture(self.real)
-        self.real_button = arcade.gui.UITextureButton(texture=self.txture2,
+        self.txture_2 = arcade.load_texture(self.texture2)
+        self.button2 = arcade.gui.UITextureButton(texture=self.txture_2,
                                                     width=self.pic_width,
                                                     height=self.pic_height,
                                                     x= SCREEN_WIDTH * 0.512 ,
                                                  y= SCREEN_HEIGHT*0.133)
-        self.manager.add(self.real_button)
-        self.real_button.on_click = self.real_button_pressed
-        self.AI_button.on_click = self.AI_button_pressed
+        self.manager.add(self.button2)
+        self.button2.on_click = self.button2_pressed
+        self.button1.on_click = self.button1_pressed
 
         #רמז
         self.txture3 = arcade.load_texture(clue_pic)
@@ -144,33 +130,51 @@ class View3(arcade.View):
                                                       x= SCREEN_WIDTH*0.95,
                                                       y=SCREEN_HEIGHT*0.0333)
         self.manager.add(self.clue_button)
-        self.clue_button.on_click = ''
+        self.clue_button.on_click = self.clue_button_clicked
+
+    def random_position(self):
+        button = [self.AI,self.real]
+        buttons = button.copy()
+        texture1 = random.choice(buttons)
+        buttons.remove(texture1)
+        texture2 = buttons[0]
+        return texture1,texture2
 
     def clue_button_clicked(self, event):
-        arcade.draw_text()
-
-    def real_button_pressed(self, event):
+        self.show_clue = True
+    def button1_pressed(self, event):
         self.run_pics()
         self.clear()
-        self.player_score += 1
+        if self.texture1 in AI_pics:
+            self.player_life -= 1
 
-    def AI_button_pressed(self, event):
+        if self.texture1 in real_pics:
+            self.player_score += 1
+
+    def button2_pressed(self, event):
         self.run_pics()
         self.clear()
-        self.player_score -= 1
+        if self.texture2 in AI_pics:
+            self.player_life -= 1
+
+        if self.texture2 in real_pics:
+            self.player_score+=1
 
     def run_pics(self):
-        selected_pictures = random.choice(pics)
+        self.show_clue = False
+        selected_pictures = random.choice(self.pics)
+        self.pics.remove(selected_pictures)
         AI_picture = selected_pictures['Ai']
         real_picture = selected_pictures['real']
+        self.clue = selected_pictures['clue']
         self.AI = arcade.load_texture(AI_picture)
         self.real= arcade.load_texture(real_picture)
-        self.real_button.texture = self.real
-        self.real_button.texture_pressed = self.real
-        self.real_button.texture_hovered = self.real
-        self.AI_button.texture = self.AI
-        self.AI_button.texture_pressed = self.AI
-        self.AI_button.texture_hovered = self.AI
+        self.button2.texture = self.real
+        self.button2.texture_pressed = self.real
+        self.button2.texture_hovered = self.real
+        self.button1.texture = self.AI
+        self.button1.texture_pressed = self.AI
+        self.button1.texture_hovered = self.AI
 
     def on_draw(self) :
         self.clear()
@@ -179,9 +183,15 @@ class View3(arcade.View):
         arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.1,SCREEN_HEIGHT*0.133,arcade.color.BLACK)
         arcade.draw_lrbt_rectangle_filled(0,SCREEN_WIDTH,SCREEN_HEIGHT*0.833,SCREEN_HEIGHT*0.866,arcade.color.BLACK)
 
-        arcade.draw_text(fix_hebrew(description_text_view3),SCREEN_WIDTH*0.35,SCREEN_HEIGHT*0.9,arcade.color.BLACK,20)
+        arcade.draw_text(fix_hebrew(description_text_view3),SCREEN_WIDTH*0.35,SCREEN_HEIGHT*0.9,arcade.color.RED,20)
 
-        arcade.draw_text(f'score: {self.player_score}',SCREEN_WIDTH*0.025,SCREEN_HEIGHT*0.9,arcade.color.BLACK,20)
+        arcade.draw_text(f'score: {self.player_score}',SCREEN_WIDTH*0.025,SCREEN_HEIGHT*0.9,arcade.color.RED,20)
+        arcade.draw_text(f'life: {self.player_life}',SCREEN_WIDTH*0.9,SCREEN_HEIGHT*0.9,arcade.color.RED,20)
+
+        if self.show_clue:
+            arcade.draw_text(fix_hebrew(self.clue), SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.03,arcade.color.WHITE,20)
+
+
 window = arcade.Window(SCREEN_WIDTH,SCREEN_HEIGHT,'Hacaton project 2026')
 window.show_view(View2())
 arcade.run()
