@@ -38,11 +38,11 @@ description_text_view3='לחצו על התמונה האמיתית'
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-pics = [{'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg"},
-        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg"},
-        {'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg"}]
+pics = [{'num':1,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
+        {'num':2,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
+        {'num':3,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'clue':''}]
 background_view2 = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
-clue_pic = r"C:\Users\USER\Downloads\HACATON\pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
+clue_pic = r"assets/pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
 # class View1(arcade.View):
 #     def __init__(self):
 #         super().__init__()
@@ -138,11 +138,15 @@ class View3(arcade.View):
         #רמז
         self.txture3 = arcade.load_texture(clue_pic)
         self.clue_button = arcade.gui.UITextureButton(texture=self.txture3,
-                                                      width=SCREEN_WIDTH*0.02,
-                                                      height=SCREEN_HEIGHT*0.01,
+                                                      width=SCREEN_WIDTH*0.04,
+                                                      height=SCREEN_HEIGHT*0.03,
                                                       x= SCREEN_WIDTH*0.95,
                                                       y=SCREEN_HEIGHT*0.0333)
-        self.manager.add()
+        self.manager.add(self.clue_button)
+        self.clue_button.on_click = ''
+
+    def clue_button_clicked(self, event):
+        arcade.draw_text()
 
     def real_button_pressed(self, event):
         self.run_pics()
