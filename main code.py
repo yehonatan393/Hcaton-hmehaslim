@@ -41,6 +41,7 @@ SCREEN_HEIGHT = 600
 pics = [{'num':1,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (1).jpeg",'clue':''},
         {'num':2,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (2).jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.58 (3).jpeg",'clue':''},
         {'num':3,'Ai':r"assets/WhatsApp Image 2026-04-13 at 17.31.59.jpeg",'real':r"assets/WhatsApp Image 2026-04-13 at 17.31.59 (1).jpeg",'clue':''}]
+
 background_view2 = r"assets/WhatsApp Image 2026-04-13 at 17.36.55.jpeg"
 clue_pic = r"assets/pngtree-cute-hand-drawn-cartoon-lamp-with-yellow-light-vector-png-image_14109462.png"
 # class View1(arcade.View):
